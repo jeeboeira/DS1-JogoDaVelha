@@ -1,12 +1,14 @@
-package com.jesse.boeira.ds1jogodavelha.jogodavelha;
+package com.jesse.boeira.ds1jogodavelha.core;/*package CoreJogoDaVelha;
 
-public class Main {
+import NewModes.GameModeHelper;
+
+public class DeprecatedMain {
 
     public static void main(String[] args) {
         System.out.println("Bem-vindo ao Jogo da Velha!");
 
         // Inicializa os jogadores
-        Jogador[] jogadores = Ferramentas.inicializaJogadores();
+        Jogador[] jogadores = PlayersHelper.createPlayer1();
         Jogador j1 = jogadores[0];
         Jogador j2 = jogadores[1];
 
@@ -29,7 +31,8 @@ public class Main {
             // Alterna o jogador que começa
             j1Comeca = !j1Comeca;
 
-            continuar = Ferramentas.desejaContinuar();
+            continuar = GameModeHelper.desejaContinuar();
         }
     }
 }
+*/

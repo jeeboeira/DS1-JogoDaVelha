@@ -1,4 +1,4 @@
-package com.jesse.boeira.ds1jogodavelha.jogodavelha;
+package com.jesse.boeira.ds1jogodavelha.core;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
