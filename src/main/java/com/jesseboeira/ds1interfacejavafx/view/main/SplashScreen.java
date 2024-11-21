@@ -1,7 +1,6 @@
 package com.jesseboeira.ds1interfacejavafx.view.main;
 
 import com.jesseboeira.ds1interfacejavafx.view.common.Screen;
-import com.jesseboeira.ds1interfacejavafx.util.SceneFactory;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,45 +12,40 @@ public class SplashScreen implements Screen { // Tela inicial do jogo
 
     @Override
     public void show(Stage stage) {
-        StackPane root = createRoot(); // Cria o layout
+        StackPane root = new StackPane(); // Cria o layout
 
-        Scene scene = getScene(stage, root); // Cria a cena
+        root.getChildren().addAll(imgSplashScreen()); // Adiciona a imagem de fundo
+        root.setStyle("-fx-background-color: black;");
+
+        // Cria uma cena com o layout
+        Scene scene = new Scene(root, 400, 400);
+
+        // Configura ação para pressionar qualquer tecla
+        scene.setOnKeyPressed((KeyEvent event) -> {
+            MainMenu mainMenu = new MainMenu(); // Navega para o menu inicial
+            mainMenu.show(stage);
+        });
+        // Configura ação para pressionar qualquer tecla
+        scene.setOnMouseClicked((mouseEvent) -> {
+            MainMenu mainMenu = new MainMenu(); // Navega para o menu inicial
+            mainMenu.show(stage);
+        });
 
         // Adiciona a cena ao palco
         stage.setScene(scene);
         stage.show();
     }
 
-    private StackPane createRoot() {
-        StackPane root = new StackPane();
-        root.getChildren().addAll(imgSplashScreen()); // Adiciona a imagem de fundo
-        return root;
+    public ImageView imgSplashScreen() {
+        // Carrega a imagem da splash screen
+        Image splashImage = new Image(
+                getClass().getResource("/com.jesseboeira.ds1interfacejavafx.assets/splash.png").toExternalForm()
+        );
+        ImageView imageView = new ImageView(splashImage);
+        imageView.setFitWidth(400); // Ajusta a largura da imagem
+        imageView.setPreserveRatio(true); // Mantém a proporção original da imagem
+        return imageView;
     }
-
-    private Scene getScene(Stage stage, StackPane root) {
-        Scene scene = new Scene(root);
-
-        // Configura ações para pressionar qualquer tecla ou clicar com o mouse
-        scene.setOnKeyPressed(this::handleKeyPress);
-        scene.setOnMouseClicked(mouseEvent -> handleMouseClick(stage));
-
-        return scene;
-    }
-
-    private void handleKeyPress(KeyEvent event) {
-        navigateToMainMenu();
-    }
-
-    private void handleMouseClick(Stage stage) {
-        navigateToMainMenu();
-    }
-
-    private void navigateToMainMenu() {
-        MainMenu mainMenu = new MainMenu(); // Navega para o menu inicial
-        mainMenu.show(stage);
-    }
-
-
 
     /*
     private void playSplashMusic() {

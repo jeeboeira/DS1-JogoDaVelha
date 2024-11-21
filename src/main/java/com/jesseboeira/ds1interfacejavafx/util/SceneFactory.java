@@ -1,4 +1,4 @@
-package dsiinterfaceemjavafx.util;
+package com.jesseboeira.ds1interfacejavafx.util;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -23,16 +23,5 @@ public class SceneFactory {
         Scene scene = createScene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    private ImageView imgSplashScreen() {
-        // Carrega a imagem da splash screen
-        Image splashImage = new Image(
-                getClass().getResource("/com.jesseboeira.ds1interfacejavafx.assets/splash.png").toExternalForm()
-        );
-        ImageView imageView = new ImageView(splashImage);
-        imageView.setFitWidth(DEFAULT_WIDTH); // Ajusta a largura da imagem
-        imageView.setPreserveRatio(true); // Mantém a proporção original da imagem
-        return imageView;
     }
 }

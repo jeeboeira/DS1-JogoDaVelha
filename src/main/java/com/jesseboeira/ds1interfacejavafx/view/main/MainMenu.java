@@ -6,6 +6,8 @@ import com.jesseboeira.ds1interfacejavafx.view.setup.LocalGameSetup;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -16,7 +18,7 @@ public class MainMenu implements Screen { // Menu principal com opções para in
 
         VBox root = new VBox(20); // Layout Principal
         root.setAlignment(Pos.CENTER);
-
+        root.getChildren().addAll(imgSplashScreen()); // Adiciona a imagem de fundo
         ////////////////////
         // Botões do menu //
         ////////////////////
@@ -55,5 +57,16 @@ public class MainMenu implements Screen { // Menu principal com opções para in
         Scene scene = new Scene(root, 400,400);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public ImageView imgSplashScreen() {
+        // Carrega a imagem da splash screen
+        Image splashImage = new Image(
+                getClass().getResource("/com.jesseboeira.ds1interfacejavafx.assets/splash.png").toExternalForm()
+        );
+        ImageView imageView = new ImageView(splashImage);
+        imageView.setFitWidth(400); // Ajusta a largura da imagem
+        imageView.setPreserveRatio(true); // Mantém a proporção original da imagem
+        return imageView;
     }
 }
