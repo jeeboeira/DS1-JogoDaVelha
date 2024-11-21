@@ -1,9 +1,10 @@
-module com.jesse.boeira.ds1jogodavelha {
+module com.jesseboeira.ds1jogodavelha {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.rmi;
 
+    exports com.jesseboeira.ds1interfacejavafx; // Permite que o JavaFX acesse o pacote de interface
+    exports com.jesseboeira.ds1jogodavelha.core; // Exporte os pacotes usados na lógica, se necessário
+    exports com.jesseboeira.ds1jogodavelha.comm; // Exporte pacotes de comunicação, se utilizados na interface
 
-    opens com.jesse.boeira.ds1jogodavelha to javafx.fxml;
-    exports com.jesse.boeira.ds1jogodavelha;
 }
