@@ -1,12 +1,15 @@
-package com.jesseboeira.ds1interfacejavafx.view;
+package com.jesseboeira.ds1interfacejavafx.view.main;
 
+import com.jesseboeira.ds1interfacejavafx.view.setup.OnlineGameSetup;
+import com.jesseboeira.ds1interfacejavafx.view.common.Screen;
+import com.jesseboeira.ds1interfacejavafx.view.setup.LocalGameSetup;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class MainMenu implements Screen{ // Menu principal com opções para iniciar o jogo
+public class MainMenu implements Screen { // Menu principal com opções para iniciar o jogo
 
     @Override
     public void show(Stage stage){

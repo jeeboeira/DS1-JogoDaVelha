@@ -1,6 +1,6 @@
 package com.jesseboeira.ds1interfacejavafx.controller;
 
-import com.jesseboeira.ds1interfacejavafx.view.GameBoardScreen;
+import com.jesseboeira.ds1interfacejavafx.view.game.GameBoardScreen;
 import com.jesseboeira.ds1jogodavelha.core.Jogador;
 import com.jesseboeira.ds1jogodavelha.core.Jogo;
 import javafx.stage.Stage;

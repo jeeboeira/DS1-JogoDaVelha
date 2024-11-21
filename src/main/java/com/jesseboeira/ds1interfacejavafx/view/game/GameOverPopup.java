@@ -1,4 +1,4 @@
-package com.jesseboeira.ds1interfacejavafx.view;
+package com.jesseboeira.ds1interfacejavafx.view.game;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

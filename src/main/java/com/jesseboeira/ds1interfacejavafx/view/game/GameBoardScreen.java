@@ -1,4 +1,4 @@
-package com.jesseboeira.ds1interfacejavafx.view;
+package com.jesseboeira.ds1interfacejavafx.view.game;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

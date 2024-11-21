@@ -8,7 +8,6 @@ public class MainApp extends Application {              // Classe principal do J
 
     @Override
     public void start(Stage primaryStage) {
-
         // Exibe a tela inicial (Splash Screen)
         com.jesseboeira.ds1interfacejavafx.view.main.SplashScreen splashScreen = new SplashScreen();
         splashScreen.show(primaryStage);

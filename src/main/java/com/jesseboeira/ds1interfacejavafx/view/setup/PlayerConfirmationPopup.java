@@ -1,4 +1,4 @@
-package com.jesseboeira.ds1interfacejavafx.view;
+package com.jesseboeira.ds1interfacejavafx.view.setup;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
