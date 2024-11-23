@@ -1,7 +1,7 @@
 package com.jesseboeira.ds1interfacejavafx;
 
+import com.jesseboeira.ds1interfacejavafx.controller.MainMenuController;
 import com.jesseboeira.ds1interfacejavafx.view.main.MainMenu;
-import com.jesseboeira.ds1interfacejavafx.view.main.SplashScreen;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,7 +11,8 @@ public class MainMenuTest extends Application {              // Classe principal
     public void start(Stage primaryStage) {
 
         // Exibe a tela inicial (Splash Screen)
-        com.jesseboeira.ds1interfacejavafx.view.main.MainMenu menu = new MainMenu();
+        MainMenuController mainMenuController = new MainMenuController();
+        MainMenu menu = new MainMenu(mainMenuController);
         menu.show(primaryStage);
     }
     public static void main(String[] args) {

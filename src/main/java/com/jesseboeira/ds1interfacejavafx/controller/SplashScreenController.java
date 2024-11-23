@@ -10,7 +10,8 @@ public class SplashScreenController {
     }
 
     private void navigateToMainMenu(Stage stage) {
-        MainMenu mainMenu = new MainMenu();
+        MainMenuController mainMenuController = new MainMenuController();
+        MainMenu mainMenu = new MainMenu(mainMenuController);
         mainMenu.show(stage);
     }
 }

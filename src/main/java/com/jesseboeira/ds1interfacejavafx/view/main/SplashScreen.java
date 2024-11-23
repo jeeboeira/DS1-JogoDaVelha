@@ -1,7 +1,7 @@
 package com.jesseboeira.ds1interfacejavafx.view.main;
 
 import com.jesseboeira.ds1interfacejavafx.controller.SplashScreenController;
-import com.jesseboeira.ds1interfacejavafx.util.ImageManipulation;
+import com.jesseboeira.ds1interfacejavafx.util.BackgroundUtils;
 import com.jesseboeira.ds1interfacejavafx.view.common.Screen;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -23,7 +23,8 @@ public class SplashScreen implements Screen { // Tela inicial do jogo
         // Layout da tela inicial
         StackPane root = new StackPane();
         root.setStyle("-fx-background-color: black;"); // Fundo preto
-        root.getChildren().add(ImageManipulation.imgSplashScreen()); // Adiciona a imagem de fundo
+        String backgroundPath = "/com.jesseboeira.ds1interfacejavafx.assets/splash.png";
+        root.getChildren().add(BackgroundUtils.backgrounds(backgroundPath)); // Adiciona a imagem de fundo
 
         // Cria a cena
         Scene scene = new Scene(root, 400, 400);
