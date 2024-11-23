@@ -1,18 +1,1 @@
-package com.jesseboeira.ds1interfacejavafx;
-
-import com.jesseboeira.ds1interfacejavafx.view.main.SplashScreen;
-import javafx.application.Application;
-import javafx.stage.Stage;
-
-public class MainApp extends Application {              // Classe principal do Jogo da Velha FX.
-
-    @Override
-    public void start(Stage primaryStage) {
-        // Exibe a tela inicial (Splash Screen)
-        com.jesseboeira.ds1interfacejavafx.view.main.SplashScreen splashScreen = new SplashScreen();
-        splashScreen.show(primaryStage);
-    }
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
+<a href="https://br.freepik.com/vetores-gratis/conjunto-de-ilustracoes-de-desenhos-animados-vetoriais-de-madeira-elementos-de-design-gui_1215952.htm#fromView=search&page=1&position=42&uuid=d80ac6c0-6a02-4e22-b74c-9e6942c7f8c2">Imagem de vectorpocket no Freepik</a>

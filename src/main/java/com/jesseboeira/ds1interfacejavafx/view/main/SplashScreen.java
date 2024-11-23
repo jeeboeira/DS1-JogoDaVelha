@@ -1,60 +1,39 @@
 package com.jesseboeira.ds1interfacejavafx.view.main;
 
+import com.jesseboeira.ds1interfacejavafx.controller.SplashScreenController;
+import com.jesseboeira.ds1interfacejavafx.util.ImageManipulation;
 import com.jesseboeira.ds1interfacejavafx.view.common.Screen;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class SplashScreen implements Screen { // Tela inicial do jogo
 
+    private SplashScreenController controller; // Controller da SplashScreen
+
+    public SplashScreen(SplashScreenController controller) {
+        this.controller = controller;
+    }
+
+
     @Override
     public void show(Stage stage) {
-        StackPane root = new StackPane(); // Cria o layout
+        stage.setResizable(false); // Boqueia aumento de tela
 
-        root.getChildren().addAll(imgSplashScreen()); // Adiciona a imagem de fundo
-        root.setStyle("-fx-background-color: black;");
+        // Layout da tela inicial
+        StackPane root = new StackPane();
+        root.setStyle("-fx-background-color: black;"); // Fundo preto
+        root.getChildren().add(ImageManipulation.imgSplashScreen()); // Adiciona a imagem de fundo
 
-        // Cria uma cena com o layout
+        // Cria a cena
         Scene scene = new Scene(root, 400, 400);
 
-        // Configura ação para pressionar qualquer tecla
-        scene.setOnKeyPressed((KeyEvent event) -> {
-            MainMenu mainMenu = new MainMenu(); // Navega para o menu inicial
-            mainMenu.show(stage);
-        });
-        // Configura ação para pressionar qualquer tecla
-        scene.setOnMouseClicked((mouseEvent) -> {
-            MainMenu mainMenu = new MainMenu(); // Navega para o menu inicial
-            mainMenu.show(stage);
-        });
+        // Configura eventos de interação
+        scene.setOnKeyPressed(event -> controller.handleAnyEvent(stage));
+        scene.setOnMouseClicked(event -> controller.handleAnyEvent(stage));
 
         // Adiciona a cena ao palco
         stage.setScene(scene);
         stage.show();
     }
-
-    public ImageView imgSplashScreen() {
-        // Carrega a imagem da splash screen
-        Image splashImage = new Image(
-                getClass().getResource("/com.jesseboeira.ds1interfacejavafx.assets/splash.png").toExternalForm()
-        );
-        ImageView imageView = new ImageView(splashImage);
-        imageView.setFitWidth(400); // Ajusta a largura da imagem
-        imageView.setPreserveRatio(true); // Mantém a proporção original da imagem
-        return imageView;
-    }
-
-    /*
-    private void playSplashMusic() {
-        Media splashMusic = new Media(
-                getClass().getResource("/com.jesseboeira.ds1interfacejavafx.assets/splash_music.mp3").toExternalForm()
-        );
-        MediaPlayer mediaPlayer = new MediaPlayer(splashMusic);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Faz a música repetir indefinidamente
-        mediaPlayer.play(); // Inicia a música
-    }
-    */
 }
