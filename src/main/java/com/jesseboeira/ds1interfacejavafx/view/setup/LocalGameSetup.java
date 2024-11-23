@@ -1,6 +1,8 @@
 package com.jesseboeira.ds1interfacejavafx.view.setup;
 
 import com.jesseboeira.ds1interfacejavafx.controller.GameController;
+import com.jesseboeira.ds1interfacejavafx.controller.LocalGameSetupController;
+import com.jesseboeira.ds1interfacejavafx.util.BackgroundUtils;
 import com.jesseboeira.ds1interfacejavafx.view.common.Screen;
 import com.jesseboeira.ds1jogodavelha.core.Jogador;
 import com.jesseboeira.ds1jogodavelha.core.PlayersHelper;
@@ -12,9 +14,23 @@ import javafx.stage.Stage;
 
 public class LocalGameSetup implements Screen { // Trocar para players
 
+    private LocalGameSetupController controller;
+
+    public LocalGameSetup(LocalGameSetupController controller){this.controller = controller;}
+
+
     @Override
     public void show(Stage stage) {
+        stage.setResizable(false); // Boqueia aumento de tela
+
+        // Layout da tela
+        //StackPane root = new StackPane(); // Cria o layout
+
+
         VBox root = new VBox(20);
+        root.setStyle("-fx-background-color: black;"); // Fundo preto
+        String backgroundPath = "/com.jesseboeira.ds1interfacejavafx.assets/playersBackground.png";
+        root.getChildren().add(BackgroundUtils.backgrounds(backgroundPath)); // Adiciona a imagem de fundo
         root.setAlignment(Pos.CENTER);
 
         // Campo para o nome do jogador 1
