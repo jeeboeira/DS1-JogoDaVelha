@@ -8,9 +8,11 @@ import javafx.stage.Stage;
 public class MainMenuController {
 
     public void handleLocalPlay(Stage stage) {
-        LocalGameSetupController localGameSetupController = new LocalGameSetupController();
+        /*LocalGameSetupController localGameSetupController = new LocalGameSetupController();
         LocalGameSetup setupScreen = new LocalGameSetup(localGameSetupController);
-        setupScreen.show(stage);
+        setupScreen.show(stage);*/
+        LocalGameSetupController localGameController = new LocalGameSetupController();
+        localGameController.start(stage);
     }
 
     public void handleOnlinePlay(Stage stage) {
