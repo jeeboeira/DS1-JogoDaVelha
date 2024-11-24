@@ -10,8 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.util.function.Consumer;
@@ -66,7 +69,7 @@ public class PlayerOneScreen implements Screen{
         imgNameBox.setTranslateX(35);
 
 
-        //Escolha do time para o jogador 1
+        //Banner escolha do time para o jogador 1
         VBox teamLabelBox = new VBox();
         teamLabelBox.setAlignment(Pos.CENTER);
 
@@ -77,43 +80,89 @@ public class PlayerOneScreen implements Screen{
         teamLabelBox.getChildren().add(imgTeam);
 
 
-        //Label teamLabel = new Label("Escolha o time do Jogador 1:");
-
-        // afg
-        VBox teamGroupBox = new VBox();
+        //Botões dos timers
+        HBox teamGroupBox = new HBox();
         ToggleGroup teamGroup = new ToggleGroup();
-        RadioButton xButton = new RadioButton("X");
-        RadioButton oButton = new RadioButton("O");
+
+        // Caminho imagens dos botões
+        String imgX = "/com.jesseboeira.ds1interfacejavafx.assets/ButtonX.png";
+        String imgO = "/com.jesseboeira.ds1interfacejavafx.assets/ButtonO.png";
+
+        // Criando os botões com imagens
+        RadioButton xButton = new RadioButton();
+        RadioButton oButton = new RadioButton();
+
         xButton.setToggleGroup(teamGroup);
         oButton.setToggleGroup(teamGroup);
         xButton.setSelected(true); // "X" selecionado por padrão
 
-        teamGroupBox.getChildren().addAll(xButton, oButton);
+
+        // Criando o circulo de destaque
+        Circle highlightCircle = new Circle(40); // Raio do círculo
+        highlightCircle.setStroke(Color.YELLOW);
+        highlightCircle.setFill(Color.TRANSPARENT);
+        highlightCircle.setVisible(true); // Invisível inicialmente
+
+        // StackPane para agrupar cada botão com seu círculo
+        StackPane xButtonPane = createCustomRadioButton(imgX, xButton);
+        StackPane oButtonPane = createCustomRadioButton(imgO, oButton);
+
+        // Adiciona os botões empilhados no VBox
+        teamGroupBox.getChildren().addAll(xButtonPane, oButtonPane);
 
 
+
+
+
+        Circle xHighlightCircle = new Circle(100, Color.YELLOW);
+        xHighlightCircle.setStroke(Color.YELLOW);
+        xHighlightCircle.setStrokeWidth(3);
+        xHighlightCircle.setVisible(true); // Invisível inicialmente
+
+        Circle oHighlightCircle = new Circle(150, Color.YELLOW);
+        oHighlightCircle.setStroke(Color.YELLOW);
+        oHighlightCircle.setStrokeWidth(3);
+        oHighlightCircle.setVisible(true); // Invisível inicialmente
+
+        // Adiciona o botão e o círculo no StackPane
+        xButtonPane.getChildren().addAll(xHighlightCircle, xButton);
+        oButtonPane.getChildren().addAll(oHighlightCircle, oButton);
+
+        // Listener para alternar a visibilidade do círculo
+        teamGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+            if (newToggle == xButton) {
+                xHighlightCircle.setVisible(true);
+                oHighlightCircle.setVisible(false);
+            } else if (newToggle == oButton) {
+                xHighlightCircle.setVisible(false);
+                oHighlightCircle.setVisible(true);
+            }
+        });
+
+
+
+        xButton.setOnAction(event -> {
+            xButton.setStyle("-fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 50%;");
+            oButton.setStyle(""); // Remove o estilo do outro botão
+        });
+
+        oButton.setOnAction(event -> {
+            oButton.setStyle("-fx-border-color: yellow; -fx-border-width: 3; -fx-border-radius: 50%;");
+            xButton.setStyle(""); // Remove o estilo do outro botão
+        });
 
 
 
         // Botão Avançar
         VBox nextButtonBox = new VBox();
-
         String imgNextPath = "/com.jesseboeira.ds1interfacejavafx.assets/next.png";
-        Button nextButton = new Button();
-
-        //ImageView buttonImage = new ImageView(new Image(imgNextPath));
-        //nextButton.setGraphic(buttonImage); // Define a imagem como o botão
-        nextButton.setGraphic(ButtonUtils.MainMenuButtons(imgNextPath)); // Define a imagem como o botão
+        Button nextButton = ButtonUtils.ButtonImg(imgNextPath);
 
         nextButtonBox.setAlignment(Pos.BOTTOM_RIGHT);
-        //nextButtonBox.setStyle("-fx-background-color: white;");
-        //nextButtonBox.setStyle("-fx-border-color: transparent;");
-        //nextButtonBox.setStyle("-fx-background-color: transparent;");
-        //nextButtonBox.setStyle("-fx-padding: -5");
-        nextButtonBox.setMargin(nextButton, new Insets(0)); // Remove margens
 
         nextButtonBox.getChildren().add(nextButton);
-        nextButtonBox.setTranslateY(-50);
-        //nextButtonBox.setTranslateX(-10);
+        nextButtonBox.setTranslateY(-10);
+        nextButtonBox.setTranslateX(-10);
 
 
 
@@ -133,7 +182,12 @@ public class PlayerOneScreen implements Screen{
 
 
 
-        root.getChildren().addAll(nameFieldBox, imgNameBox, teamLabelBox, teamGroupBox, nextButtonBox);
+        root.getChildren().addAll(nameFieldBox,
+                                  imgNameBox,
+                                  teamLabelBox,
+                                  teamGroupBox,
+                                  nextButtonBox
+        );
 
 
 
@@ -143,5 +197,31 @@ public class PlayerOneScreen implements Screen{
 
         stage.setScene(scene);
         stage.show();
+    }
+
+    // Método para criar um botão de imagem customizado
+    private StackPane createCustomRadioButton(String imgPath, RadioButton radioButton) {
+        ImageView buttonImage = new ImageView(new Image(getClass().getResource(imgPath).toExternalForm()));
+        buttonImage.setFitWidth(80); // Defina o tamanho da imagem
+        buttonImage.setFitHeight(80);
+
+        // Torna o RadioButton invisível
+        radioButton.setStyle("-fx-opacity: 0;");
+
+        // Agrupando imagem e botão invisível
+        StackPane buttonPane = new StackPane();
+        buttonPane.getChildren().addAll(buttonImage, radioButton);
+        buttonPane.setOnMouseClicked(event -> radioButton.fire()); // Permite que o clique ative o botão
+
+        // Listener para mudar a aparência da imagem quando selecionado
+        radioButton.selectedProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue) {
+                buttonImage.setOpacity(1.0); // Muda a opacidade da imagem quando selecionada
+            } else {
+                buttonImage.setOpacity(0.5); // Muda a opacidade da imagem quando não selecionada
+            }
+        });
+
+        return buttonPane;
     }
 }

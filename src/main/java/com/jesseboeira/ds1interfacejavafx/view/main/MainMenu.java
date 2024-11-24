@@ -36,8 +36,8 @@ public class MainMenu implements Screen { // Menu principal com opções para in
         String imgExitPath = "/com.jesseboeira.ds1interfacejavafx.assets/exit.png";
 
         // Criar os botões superiores
-        Button aboutButton = ButtonUtils.MainMenuButtons(imgAboutPath);
-        Button exitButton = ButtonUtils.MainMenuButtons(imgExitPath);
+        Button aboutButton = ButtonUtils.ButtonImg(imgAboutPath);
+        Button exitButton = ButtonUtils.ButtonImg(imgExitPath);
 
         // Posiciona os botões
         topBar.getChildren().addAll(aboutButton, exitButton);
@@ -53,8 +53,8 @@ public class MainMenu implements Screen { // Menu principal com opções para in
         String imgOnlinePath = "/com.jesseboeira.ds1interfacejavafx.assets/onlinePlay.png";
 
         // Criar os três botões inferiores
-        Button localPlayButton = ButtonUtils.MainMenuButtons(imgLocalPath);
-        Button onlinePlayButton = ButtonUtils.MainMenuButtons(imgOnlinePath);
+        Button localPlayButton = ButtonUtils.ButtonImg(imgLocalPath);
+        Button onlinePlayButton = ButtonUtils.ButtonImg(imgOnlinePath);
 
         bottomBar.getChildren().addAll(localPlayButton, onlinePlayButton);
         bottomBar.setAlignment(Pos.BOTTOM_CENTER);
