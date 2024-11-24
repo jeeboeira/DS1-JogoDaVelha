@@ -13,8 +13,14 @@ public class ButtonUtils {
         imageView.setFitWidth(70);
         imageView.setPreserveRatio(true);
         button.setGraphic(imageView);
+        button.setStyle(
+                "-fx-background-color: transparent;" + /* Remove a cor de fundo */
+                        "-fx-border-color: transparent;" +    /* Remove a borda */
+                        "-fx-background-radius: 0;"   +
+                        "-fx-padding: 0;"         /* Remove bordas arredondadas */
+        );
 
-        button.setStyle("-fx-background-color: black;");
+        //button.setStyle("-fx-background-color: black;");
 
         return button;
     }
