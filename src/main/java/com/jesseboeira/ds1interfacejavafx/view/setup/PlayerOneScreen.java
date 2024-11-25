@@ -1,5 +1,6 @@
 package com.jesseboeira.ds1interfacejavafx.view.setup;
 
+import com.jesseboeira.ds1interfacejavafx.controller.PlayerOneController;
 import com.jesseboeira.ds1interfacejavafx.util.BackgroundUtils;
 import com.jesseboeira.ds1interfacejavafx.util.ButtonUtils;
 import com.jesseboeira.ds1interfacejavafx.view.common.Screen;
@@ -19,10 +20,14 @@ import javafx.stage.Stage;
 
 import java.util.function.Consumer;
 
-public class PlayerOneScreen implements Screen {
 
+public class PlayerOneScreen implements Screen {
+    //private PlayerOneController controller;
     private Consumer<String> onNameEntered;
 
+    /*public PlayerOneScreen(PlayerOneController controller) {
+        this.controller = controller;
+    }*/
     public PlayerOneScreen(Consumer<String> onNameEntered) {
         this.onNameEntered = onNameEntered;
     }
@@ -52,16 +57,14 @@ public class PlayerOneScreen implements Screen {
         HBox teamGroupBox = createTeamSelection();
 
         // Botão Next
-        VBox nextButtonBox = createNextButton(stage, nameFieldBox, teamGroupBox);
+        VBox nextButtonBox = createNextButton(nameFieldBox, teamGroupBox);
+
+        VBox clicaveis = new VBox();
+        clicaveis.setAlignment(Pos.CENTER);
+        clicaveis.getChildren().addAll(nextButtonBox, teamGroupBox, nameFieldBox,imgNameBox,teamLabelBox);
 
         // Adiciona todos os elementos ao layout
-        root.getChildren().addAll(
-                nameFieldBox,
-                imgNameBox,
-                teamLabelBox,
-                teamGroupBox,
-                nextButtonBox
-        );
+        root.getChildren().addAll(clicaveis);
 
         // Configura a cena
         Scene scene = new Scene(root, 400, 400);
@@ -76,7 +79,7 @@ public class PlayerOneScreen implements Screen {
         nameFieldBox.getChildren().add(nameField);
         nameFieldBox.setAlignment(Pos.CENTER);
         nameFieldBox.setMaxWidth(330);
-        nameFieldBox.setTranslateY(-50);
+        nameFieldBox.setTranslateY(-100);
         nameField.setStyle("-fx-background-color: black; -fx-text-fill: white;");
         return nameFieldBox;
     }
@@ -86,7 +89,7 @@ public class PlayerOneScreen implements Screen {
         String imgNamePath = "/com.jesseboeira.ds1interfacejavafx.assets/enterYourName.png";
         ImageView imgName = new ImageView(new Image(getClass().getResource(imgNamePath).toExternalForm()));
         imgNameBox.getChildren().add(imgName);
-        imgNameBox.setTranslateY(-90);
+        imgNameBox.setTranslateY(-170);
         imgNameBox.setAlignment(Pos.CENTER_LEFT);
         imgNameBox.setTranslateX(35);
         return imgNameBox;
@@ -98,6 +101,7 @@ public class PlayerOneScreen implements Screen {
         ImageView imgTeam = new ImageView(new Image(getClass().getResource(imgTeamPath).toExternalForm()));
         teamLabelBox.getChildren().add(imgTeam);
         teamLabelBox.setAlignment(Pos.CENTER);
+        teamLabelBox.setTranslateY(-80);
         return teamLabelBox;
     }
 
@@ -106,42 +110,49 @@ public class PlayerOneScreen implements Screen {
         teamGroupBox.setAlignment(Pos.CENTER);
         teamGroupBox.setTranslateY(70);
 
-        // Grupo de seleção
-        ToggleGroup teamGroup = new ToggleGroup();
-
         // Caminho imagens dos botões
         String imgX = "/com.jesseboeira.ds1interfacejavafx.assets/ButtonX.png";
         String imgO = "/com.jesseboeira.ds1interfacejavafx.assets/ButtonO.png";
 
         // Cria os botões de imagens
-        RadioButton xButton = ButtonUtils.RadioButtonImg(imgX);
-        RadioButton oButton = ButtonUtils.RadioButtonImg(imgO);
-
-        xButton.setStyle("-fx-background-color: transparent; -fx-opacity: 0;"); // Oculta o RadioButton
-
-
-        // Configura o grupo de seleção
-        xButton.setToggleGroup(teamGroup);
-        oButton.setToggleGroup(teamGroup);
-        xButton.setSelected(true); // "X" selecionado por padrão
+        Button xButton = ButtonUtils.ButtonImg(imgX);
+        Button oButton = ButtonUtils.ButtonImg(imgO);
 
         // Adiciona os botões ao layout
         teamGroupBox.getChildren().addAll(xButton, oButton);
 
+
+        // Adiciona lógica de seleção
+        final char[] selectedTeam = {'\0'};
+        xButton.setOnAction(event -> {
+            selectedTeam[0] = 'X';
+            System.out.println("clicou x");
+            xButton.setStyle("-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 8;-fx-background-color: transparent;");
+            oButton.setStyle("-fx-background-color: transparent;"); // Remove destaque do outro botão
+        });
+
+        oButton.setOnMouseClicked(event -> {
+            selectedTeam[0] = 'O';
+            System.out.println("clicou o");
+            oButton.setStyle("-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 8;-fx-background-color: transparent;");
+            xButton.setStyle("-fx-background-color: transparent;"); // Remove destaque do outro botão
+        });
+        teamGroupBox.setUserData(selectedTeam);
         return teamGroupBox;
     }
 
-    private VBox createNextButton(Stage stage, VBox nameFieldBox, HBox teamGroupBox) {
+    private VBox createNextButton(VBox nameFieldBox, HBox teamGroupBox) {
         VBox nextButtonBox = new VBox();
         String imgNextPath = "/com.jesseboeira.ds1interfacejavafx.assets/next.png";
         Button nextButton = ButtonUtils.ButtonImg(imgNextPath);
         nextButtonBox.getChildren().add(nextButton);
         nextButtonBox.setAlignment(Pos.BOTTOM_RIGHT);
-        nextButtonBox.setTranslateY(-10);
+        nextButtonBox.setTranslateY(235);
         nextButtonBox.setTranslateX(-10);
 
         // Ação do botão Next
         nextButton.setOnAction(event -> {
+            System.out.println("Botão next");
             // Obtém o nome do jogador
             TextField nameField = (TextField) nameFieldBox.getChildren().get(0);
             String playerName = nameField.getText();
@@ -151,9 +162,7 @@ public class PlayerOneScreen implements Screen {
                 onNameEntered.accept(playerName);
 
                 // Obtém o time selecionado
-                ToggleGroup teamGroup = ((RadioButton) teamGroupBox.getChildren().get(0)).getToggleGroup();
-                RadioButton selectedTeam = (RadioButton) teamGroup.getSelectedToggle();
-                char player1Team = selectedTeam.getText().charAt(0);
+                char player1Team = ((char[]) teamGroupBox.getUserData())[0];
 
                 // Cria o jogador
                 Jogador jogador1 = new Jogador(playerName, player1Team);

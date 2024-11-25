@@ -1,4 +1,4 @@
 package com.jesseboeira.ds1interfacejavafx.controller;
 
-public class PlayerOneSetupScreenController {
+public class PlayerOneController {
 }
