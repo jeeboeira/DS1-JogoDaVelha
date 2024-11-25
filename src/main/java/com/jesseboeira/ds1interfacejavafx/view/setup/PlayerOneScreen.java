@@ -1,5 +1,6 @@
 package com.jesseboeira.ds1interfacejavafx.view.setup;
 
+import com.jesseboeira.ds1interfacejavafx.controller.LocalGameSetupController;
 import com.jesseboeira.ds1interfacejavafx.controller.PlayerOneController;
 import com.jesseboeira.ds1interfacejavafx.util.BackgroundUtils;
 import com.jesseboeira.ds1interfacejavafx.util.ButtonUtils;
@@ -22,6 +23,7 @@ import java.util.function.Consumer;
 
 
 public class PlayerOneScreen implements Screen {
+
     //private PlayerOneController controller;
     private Consumer<String> onNameEntered;
 
@@ -124,6 +126,7 @@ public class PlayerOneScreen implements Screen {
 
         // Adiciona lógica de seleção
         final char[] selectedTeam = {'\0'};
+        selectedTeam[0] = 'X';
         xButton.setOnAction(event -> {
             selectedTeam[0] = 'X';
             System.out.println("clicou x");
@@ -157,15 +160,18 @@ public class PlayerOneScreen implements Screen {
             TextField nameField = (TextField) nameFieldBox.getChildren().get(0);
             String playerName = nameField.getText();
 
+            // Obtém o time selecionado
+            char player1Team = ((char[]) teamGroupBox.getUserData())[0];
+
+
+
             // Verifica se o nome não está vazio
             if (!playerName.isEmpty()) {
+                // Cria o jogador
+                LocalGameSetupController.jogador1 = new Jogador(playerName, player1Team);
                 onNameEntered.accept(playerName);
 
-                // Obtém o time selecionado
-                char player1Team = ((char[]) teamGroupBox.getUserData())[0];
 
-                // Cria o jogador
-                Jogador jogador1 = new Jogador(playerName, player1Team);
             }
         });
 
