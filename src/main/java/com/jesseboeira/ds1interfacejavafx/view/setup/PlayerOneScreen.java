@@ -54,13 +54,18 @@ public class PlayerOneScreen implements Screen {
         // Botão Next
         VBox nextButtonBox = createNextButton(stage, nameFieldBox, teamGroupBox);
 
+        VBox clicaveis = new VBox();
+        clicaveis.setAlignment(Pos.CENTER);
+        clicaveis.getChildren().addAll(nextButtonBox, teamGroupBox, nameFieldBox,imgNameBox,teamLabelBox);
+
         // Adiciona todos os elementos ao layout
         root.getChildren().addAll(
-                nameFieldBox,
-                imgNameBox,
-                teamLabelBox,
-                teamGroupBox,
-                nextButtonBox
+                //nameFieldBox,
+                //imgNameBox,
+                //teamLabelBox,
+                clicaveis
+                //nextButtonBox
+
         );
 
         // Configura a cena
@@ -76,7 +81,7 @@ public class PlayerOneScreen implements Screen {
         nameFieldBox.getChildren().add(nameField);
         nameFieldBox.setAlignment(Pos.CENTER);
         nameFieldBox.setMaxWidth(330);
-        nameFieldBox.setTranslateY(-50);
+        nameFieldBox.setTranslateY(-100);
         nameField.setStyle("-fx-background-color: black; -fx-text-fill: white;");
         return nameFieldBox;
     }
@@ -86,7 +91,7 @@ public class PlayerOneScreen implements Screen {
         String imgNamePath = "/com.jesseboeira.ds1interfacejavafx.assets/enterYourName.png";
         ImageView imgName = new ImageView(new Image(getClass().getResource(imgNamePath).toExternalForm()));
         imgNameBox.getChildren().add(imgName);
-        imgNameBox.setTranslateY(-90);
+        imgNameBox.setTranslateY(-170);
         imgNameBox.setAlignment(Pos.CENTER_LEFT);
         imgNameBox.setTranslateX(35);
         return imgNameBox;
@@ -98,6 +103,7 @@ public class PlayerOneScreen implements Screen {
         ImageView imgTeam = new ImageView(new Image(getClass().getResource(imgTeamPath).toExternalForm()));
         teamLabelBox.getChildren().add(imgTeam);
         teamLabelBox.setAlignment(Pos.CENTER);
+        teamLabelBox.setTranslateY(-80);
         return teamLabelBox;
     }
 
@@ -107,26 +113,31 @@ public class PlayerOneScreen implements Screen {
         teamGroupBox.setTranslateY(70);
 
         // Grupo de seleção
-        ToggleGroup teamGroup = new ToggleGroup();
+        //ToggleGroup teamGroup = new ToggleGroup();
 
         // Caminho imagens dos botões
         String imgX = "/com.jesseboeira.ds1interfacejavafx.assets/ButtonX.png";
         String imgO = "/com.jesseboeira.ds1interfacejavafx.assets/ButtonO.png";
 
         // Cria os botões de imagens
-        RadioButton xButton = ButtonUtils.RadioButtonImg(imgX);
-        RadioButton oButton = ButtonUtils.RadioButtonImg(imgO);
-
-        xButton.setStyle("-fx-background-color: transparent; -fx-opacity: 0;"); // Oculta o RadioButton
-
-
-        // Configura o grupo de seleção
-        xButton.setToggleGroup(teamGroup);
-        oButton.setToggleGroup(teamGroup);
-        xButton.setSelected(true); // "X" selecionado por padrão
-
+        Button xButton = ButtonUtils.ButtonImg(imgX);
+        Button oButton = ButtonUtils.ButtonImg(imgO);
         // Adiciona os botões ao layout
         teamGroupBox.getChildren().addAll(xButton, oButton);
+
+
+        // Adiciona lógica de seleção
+        xButton.setOnAction(event -> {
+            System.out.println("clicou x");
+            xButton.setStyle("-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 8;-fx-background-color: transparent;");
+            oButton.setStyle("-fx-background-color: transparent;"); // Remove destaque do outro botão
+        });
+
+        oButton.setOnMouseClicked(event -> {
+            System.out.println("clicou o");
+            oButton.setStyle("-fx-border-color: black; -fx-border-width: 2; -fx-border-radius: 8;-fx-background-color: transparent;");
+            xButton.setStyle("-fx-background-color: transparent;"); // Remove destaque do outro botão
+        });
 
         return teamGroupBox;
     }
@@ -135,13 +146,14 @@ public class PlayerOneScreen implements Screen {
         VBox nextButtonBox = new VBox();
         String imgNextPath = "/com.jesseboeira.ds1interfacejavafx.assets/next.png";
         Button nextButton = ButtonUtils.ButtonImg(imgNextPath);
-        nextButtonBox.getChildren().add(nextButton);
+        nextButtonBox.getChildren().addAll(nextButton, teamGroupBox, nameFieldBox);
         nextButtonBox.setAlignment(Pos.BOTTOM_RIGHT);
-        nextButtonBox.setTranslateY(-10);
+        nextButtonBox.setTranslateY(235);
         nextButtonBox.setTranslateX(-10);
 
         // Ação do botão Next
         nextButton.setOnAction(event -> {
+            System.out.println("Botão next");
             // Obtém o nome do jogador
             TextField nameField = (TextField) nameFieldBox.getChildren().get(0);
             String playerName = nameField.getText();

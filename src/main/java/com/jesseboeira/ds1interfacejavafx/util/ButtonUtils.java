@@ -54,7 +54,7 @@ public class ButtonUtils {
         imageView.setFitWidth(70);
         imageView.setPreserveRatio(true);
         radioButton.setGraphic(imageView);
-        radioButton.setStyle("-fx-background-color: transparent;");
+        //radioButton.setStyle("-fx-background-color: transparent; -fx-border-color: transparent; -fx-opacity: 0;");
         return radioButton;
     }
 }
