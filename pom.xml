@@ -67,7 +67,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.jesseboeira.ds1jogodavelha/com.jesseboeira.ds1jogodavelha.HelloApplication
+                                com.jesseboeira.jogodavelha
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
