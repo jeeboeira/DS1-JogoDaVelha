@@ -12,8 +12,9 @@ public class ScreenManager {
         this.stage = stage;
     }
 
-    public void showScreen(Parent root) {
+    public void showScreen(Parent root, String title) {
         currentScene = new Scene(root, 400, 400); // Dimensões padrão
+        stage.setTitle(title);  // Título da janela
         stage.setScene(currentScene);
         stage.setResizable(false); // Bloqueia o redimensionamento
         stage.show();
